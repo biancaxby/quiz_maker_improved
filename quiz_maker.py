@@ -48,6 +48,13 @@ class QuizMaker:
                     # Replaces the line
                     lines[edit_line - 1] = f"{edited_statement}\n"
 
+                    # Writes file again
+                    updated_file_content = open(f"{subjects}.txt", "w")
+                    updated_file_content.writelines(lines)
+
+                finally:
+                    updated_file_content.close()         # Closes file
+
 
 
                     
@@ -60,9 +67,4 @@ class QuizMaker:
 
 quizmaker = QuizMaker()
 quizmaker.add__questions()
-
-
-# file editor
-# open file
-# overwrite file to edit
-# close file
+quizmaker.file_editor()
