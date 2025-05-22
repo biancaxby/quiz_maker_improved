@@ -5,7 +5,7 @@ class QuizMaker:
         while True:    
 
             # Chooses the subject the user wants to add questions to
-            subjects = input('What subject would you like?(math, science, history, english)(enter quit to return)')
+            subjects = input('What subject would you like?(math, science, history, english)(enter quit to return)').lower()
             if subjects == "quit":      # Returns when 'quit' is used by user
                 break
             try: 
@@ -22,7 +22,7 @@ class QuizMaker:
     def file_editor(self):
             while True:
         # Chooses the subject the user wants to add questions to
-                subjects = input('What subject would you like?(math, science, history, english)(enter quit to return)')
+                subjects = input('What subject would you like?(math, science, history, english)(enter quit to return)').lower()
                 if subjects == "quit":      # Returns when 'quit' is used by user
                     break
                 try:
@@ -55,16 +55,15 @@ class QuizMaker:
                 finally:
                     updated_file_content.close()         # Closes file
 
-
-
-                    
-
-
-
-
-
-
+    def view_questions():
+        while True:
+            subjects = input('What subject? (math, science, english, history) or enter "quit": ').lower()
+            if subjects == "quit":
+                break
+            questionares = open(f"{subjects}.txt", 'r')
+            print(questionares.read())  # Prints all the questions stored on the text file
 
 quizmaker = QuizMaker()
 quizmaker.add__questions()
 quizmaker.file_editor()
+quizmaker.view_questions()
