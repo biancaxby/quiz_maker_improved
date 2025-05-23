@@ -24,3 +24,12 @@ class FileReader:
                         if striped_lines == striped_lines.startswith("The correct answer is:"):
                             count_line += 1
                             continue
+                        
+                        # Prints the questions and options on the txt file
+                        print(striped_lines)
+                        count_line += 1
+
+                        # Checks if the line is the answer key
+                        if count_line < len(start_quiz) and start_quiz[count_line].startswith("The correct answer is:"):
+                            answer = start_quiz[count_line].replace("The correct answer is: ", "").strip()   # Separates the answer
+                            count_line += 1
