@@ -1,12 +1,12 @@
 # Quiz maker with application of oop format
 
 class FileReader:
-    def __init__(self, usernames):
-         self.usernames = usernames
+    def __init__(self):
+         self.usernames = input("Enter your name: ")
+         self.correct_scores = 0
          
     def quiz_file_reader(self):
         while True:
-
             subjects = input("What subject would you like to do?(math, science, history, english)(Enter quit to exit): ")
             if subjects == "quit":
                 break
@@ -14,7 +14,6 @@ class FileReader:
                 quiz = open(f"{subjects}.txt", "r")
                 start_quiz = quiz.readlines()
                 count_line = 0         # Counts how many lines 
-                correct_answers = 0    # Counts how many correct answers 
                 question_counter = 0 
                
                 while count_line < len(start_quiz):
@@ -44,21 +43,22 @@ class FileReader:
 
                             if  user_answer == answer:
                                     print("Correct!")     # Prints correct if the answer is correct
-                                    correct_answers += 1  # Adds to the number of correct answers
+                                    self.correct_scores += 1  # Adds to the number of correct answers
                             if user_answer != answer:
                                 print("Wrong!")          # Prints wrong is the answer is wrong
                             if user_answer == "quit":     # Returns to the menu 
                                     break
-                        
-                percentage = correct_answers / question_counter * 100    # Calculates the percentage of the score 
-                print(f"Congrats {self.usernames}! You have scored {correct_answers} out of {question_counter}!\n Which means you have answered {percentage}% of the questions correctly!")
+                
+                print(self.usernames)
+                percentage = self.correct_scores / question_counter * 100    # Calculates the percentage of the score 
+                print(f"Congrats {self.usernames}! You have scored {self.correct_scores} out of {question_counter}!\n Which means you have answered {percentage}% of the questions correctly!")
             
             finally:
                 quiz.close()
 
-    def score_viewer(self, usernames):
+    def score_viewer(self, usernames, correct_scores):
         # Create a list of [username, score] pairs
-        top_scorers = [[name, score] for name, score in zip(usernames)]    
+        top_scorers = [[name, score] for name, score in zip(usernames, correct_scores)]    
         
         # Sort the list by score in descending order
         top_scorers.sort(key=lambda x: x[1], reverse=True)
@@ -67,8 +67,6 @@ class FileReader:
         print("Top Scorers:")
         for i, (name, score) in enumerate(top_scorers, 1):
             print(f"{i}. {name} {score} points")
-
-usernames = input("What is your name?: ")
-file_reader = FileReader(usernames)
+file_reader = FileReader()
 file_reader.quiz_file_reader()
             
