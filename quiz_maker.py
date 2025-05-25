@@ -62,8 +62,3 @@ class QuizMaker:
                 break
             questionares = open(f"{subjects}.txt", 'r')
             print(questionares.read())  # Prints all the questions stored on the text file
-
-quizmaker = QuizMaker()
-quizmaker.add__questions()
-quizmaker.file_editor()
-quizmaker.view_questions()
