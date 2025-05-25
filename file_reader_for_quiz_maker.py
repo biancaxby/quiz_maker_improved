@@ -56,6 +56,18 @@ class FileReader:
             finally:
                 quiz.close()
 
+    def score_viewer(self, usernames):
+        # Create a list of [username, score] pairs
+        top_scorers = [[name, score] for name, score in zip(usernames)]    
+        
+        # Sort the list by score in descending order
+        top_scorers.sort(key=lambda x: x[1], reverse=True)
+        
+        # Display the sorted scores
+        print("Top Scorers:")
+        for i, (name, score) in enumerate(top_scorers, 1):
+            print(f"{i}. {name} {score} points")
+
 usernames = input("What is your name?: ")
 file_reader = FileReader(usernames)
 file_reader.quiz_file_reader()
