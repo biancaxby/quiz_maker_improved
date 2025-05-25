@@ -2,14 +2,17 @@
 
 class FileReader:
     def __init__(self):
-         self.usernames = input("Enter your name: ")
+         self.usernames = None
          self.correct_scores = 0
+         self.score_ranking = []
          
     def quiz_file_reader(self):
         while True:
             subjects = input("What subject would you like to do?(math, science, history, english)(Enter quit to exit): ")
             if subjects == "quit":
                 break
+            self.usernames = input("Enter your name: ")           # Asks user for their name
+            self.correct_scores = 0       # Initializes before the user begins the quiz
             try:
                 quiz = open(f"{subjects}.txt", "r")
                 start_quiz = quiz.readlines()
@@ -49,24 +52,20 @@ class FileReader:
                             if user_answer == "quit":     # Returns to the menu 
                                     break
                 
-                print(self.usernames)
                 percentage = self.correct_scores / question_counter * 100    # Calculates the percentage of the score 
                 print(f"Congrats {self.usernames}! You have scored {self.correct_scores} out of {question_counter}!\n Which means you have answered {percentage}% of the questions correctly!")
             
             finally:
                 quiz.close()
 
-    def score_viewer(self, usernames, correct_scores):
+    def score_viewer(self):
         # Create a list of [username, score] pairs
-        top_scorers = [[name, score] for name, score in zip(usernames, correct_scores)]    
+        self.score_ranking.append((self.usernames, self.correct_scores)) 
         
         # Sort the list by score in descending order
-        top_scorers.sort(key=lambda x: x[1], reverse=True)
+        self.score_ranking.sort(key=lambda x: x[1], reverse=True)
         
         # Display the sorted scores
         print("Top Scorers:")
-        for i, (name, score) in enumerate(top_scorers, 1):
+        for i, (name, score) in enumerate(self.score_ranking, 1):
             print(f"{i}. {name} {score} points")
-file_reader = FileReader()
-file_reader.quiz_file_reader()
-            
